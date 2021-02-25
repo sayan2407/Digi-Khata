@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "309271407256",
+    "project_id": "digi-khata-1d94c",
+    "storage_bucket": "digi-khata-1d94c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309271407256:android:f9ab4f15803846fe61feed",
+        "android_client_info": {
+          "package_name": "com.uit.digi_khata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309271407256-0aku6uqpu89egsvkmegse5knclu06ds6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvJvmja78ZjQDOQDSHGXzflyD-CItCdpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309271407256-0aku6uqpu89egsvkmegse5knclu06ds6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

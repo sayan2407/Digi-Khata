@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Digi-Khata</string>
+    <string name="welcome_to_digi_khata">WELCOME TO DIGI-KHATA</string>
+    <string name="make_your_business_easy">make your business easy</string>
+    <string name="made_for_business">Made For Business</string>
+    <string name="start_using_digi_khata">Start Using Digi-Khata</string>
+    <string name="enter_your_email">Enter Your Email</string>
+    <string name="get_pin">Get Pin</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="already_have_an_account_login_here">Already have an Account?Login here</string>
+    <string name="log_in">Log In</string>
+    <string name="don_t_have_account_resgister_yourself_here">Don\'t have account?Resgister Yourself here</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login_to_use_digi_khata">Login to use Digi-Khata</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="create_your_account">Create your Account</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_company_name">Enter your company name</string>
+    <string name="enter_your_phone_number">Enter your 10 digits phone number</string>
+    <string name="create_your_password">Create your password</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="add_customer">Add Customer</string>
+    <string name="share">Share</string>
+    <string name="log_out">Log Out</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about">About</string>
+    <string name="choose_your_customer">Choose your customer</string>
+    <string name="total_report">Total Report</string>
+    <string name="you_will_give">You will give</string>
+    <string name="you_will_get">You will get</string>
+    <string name="search_your_customer">Search your Customer</string>
+</resources>

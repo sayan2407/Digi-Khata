@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragmentsLayer.AddCustomer">
+
+    <Button
+        android:id="@+id/addcustomer"
+        android:layout_margin="20sp"
+        android:textStyle="bold"
+        android:elevation="4sp"
+        android:padding="10sp"
+        android:background="@drawable/contacts_button"
+        android:text="@string/choose_your_customer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_margin="20sp"
+        android:background="@color/amethyst"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"/>
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
