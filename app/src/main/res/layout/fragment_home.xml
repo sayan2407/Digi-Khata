@@ -89,6 +89,7 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/contacts"
         android:layout_alignParentRight="true"
         android:src="@drawable/person_add_24"
         android:elevation="4sp"

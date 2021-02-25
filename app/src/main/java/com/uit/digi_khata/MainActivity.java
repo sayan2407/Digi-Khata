@@ -15,7 +15,11 @@ import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.uit.digi_khata.HomeFragmentsLayer.AddCustomer;
 import com.uit.digi_khata.HomeFragmentsLayer.HomeFragment;
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         setuptoolbar();
         initDrawer();
-     //   Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
-      //  getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -53,15 +56,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
 
-    private  void initDrawer()
+     private  void initDrawer()
     {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.replace(R.id.content,new HomeFragment()).commit();
 
-  /*      actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name){
+     /*  actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name){
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -74,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);  */
+        drawerLayout.addDrawerListener(actionBarDrawerToggle); */
 
     }
 

@@ -21,7 +21,7 @@
     <string name="confirm_your_password">Confirm your password</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
-    <string name="add_customer">Add Customer</string>
+    <string name="add_customer1">Add Customer</string>
     <string name="share">Share</string>
     <string name="log_out">Log Out</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -32,4 +32,8 @@
     <string name="you_will_give">You will give</string>
     <string name="you_will_get">You will get</string>
     <string name="search_your_customer">Search your Customer</string>
+    <string name="enter_customer_name">Enter customer name</string>
+    <string name="enter_customer_phone_number">Enter customer phone number</string>
+    <string name="enter_customer_address">Enter customer Address</string>
+    <string name="add_customer">Add Customer</string>
 </resources>
