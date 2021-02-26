@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class CustomerActivity extends AppCompatActivity {
 
@@ -22,7 +23,9 @@ public class CustomerActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1;
     private Button choose , insert ;
     private TextInputEditText name,phone,address ;
-    private String customerName,customerPhone,customerAdd;
+    private String customerName,customerPhone,customerAdd,userid;
+    DatabaseHelperCustomer mydb ;
+    FirebaseAuth fauth ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,8 @@ public class CustomerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mapping();
+        mydb = new DatabaseHelperCustomer(getApplicationContext()) ;
+        fauth = FirebaseAuth.getInstance();
 
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +60,16 @@ public class CustomerActivity extends AppCompatActivity {
 
                 if (validate(v))
                 {
-                    Toast.makeText(CustomerActivity.this, "phone:"+customerPhone+"\nName : "+customerName, Toast.LENGTH_SHORT).show();
+                    userid = fauth.getCurrentUser().getUid() ;
+                    boolean check = mydb.insert_customer(customerPhone,customerName,customerAdd,userid) ;
+                    if (check)
+                        Toast.makeText(getApplicationContext(),"Data Inserted",Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getApplicationContext(),"Data Not Inserted",Toast.LENGTH_LONG).show();
+
+                    name.setText("");
+                    phone.setText("");
+                    address.setText("");
                 }
             }
         });

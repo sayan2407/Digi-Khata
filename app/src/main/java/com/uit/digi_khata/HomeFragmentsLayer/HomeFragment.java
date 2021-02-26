@@ -1,6 +1,8 @@
 package com.uit.digi_khata.HomeFragmentsLayer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,14 +10,23 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.uit.digi_khata.CustomerActivity;
+import com.uit.digi_khata.DatabaseHelperCustomer;
+import com.uit.digi_khata.ItemModel;
 import com.uit.digi_khata.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -23,6 +34,12 @@ public class HomeFragment extends Fragment {
     ListView listView ;
     FloatingActionButton contact ;
     TextView paid,due ;
+    FirebaseAuth fauth ;
+    String userid ;
+    Cursor result ;
+    DatabaseHelperCustomer mydb ;
+    ItemModel itemModel;
+    List<ItemModel> modelList=new ArrayList<>();
 
 
     public HomeFragment() {
@@ -40,6 +57,25 @@ public class HomeFragment extends Fragment {
         contact = view.findViewById(R.id.contacts) ;
         paid = view.findViewById(R.id.t3) ;
         due = view.findViewById(R.id.t4) ;
+       mydb = new DatabaseHelperCustomer(getActivity());
+        fauth = FirebaseAuth.getInstance();
+        userid = fauth.getCurrentUser().getUid();
+       result = mydb.customer_data() ;
+
+       while (result.moveToNext())
+        {
+            String id = result.getString(3) ;
+           // Toast.makeText(getActivity(), result.getString(0), Toast.LENGTH_SHORT).show();
+            if (id.equals(userid))
+            {
+                itemModel = new ItemModel(result.getString(1),result.getString(0),result.getString(2));
+            }
+
+            modelList.add(itemModel) ;
+
+        }
+       CustomAdapter customAdapter = new CustomAdapter(modelList,getActivity()) ;
+       listView.setAdapter(customAdapter);
 
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,4 +85,45 @@ public class HomeFragment extends Fragment {
         });
         return view ;
     }
+   public class CustomAdapter extends BaseAdapter
+   {
+       List<ItemModel> itemModelList ;
+       Context context ;
+
+       public CustomAdapter(List<ItemModel> itemModelList,Context context)
+       {
+           this.itemModelList = itemModelList ;
+           this.context = context ;
+       }
+
+       @Override
+       public int getCount() {
+           return itemModelList.size();
+       }
+
+       @Override
+       public Object getItem(int position) {
+           return itemModelList.get(position);
+       }
+
+       @Override
+       public long getItemId(int position) {
+           return position;
+       }
+
+       @Override
+       public View getView(int position, View convertView, ViewGroup parent)
+       {
+           View view=getLayoutInflater().inflate(R.layout.customer_list,null);
+           TextView name = view.findViewById(R.id.cname) ;
+           TextView phone = view.findViewById(R.id.cphone);
+           TextView address = view.findViewById(R.id.cadd);
+
+           name.setText("Name : "+itemModelList.get(position).getCustomerName());
+           phone.setText("Phone : "+itemModelList.get(position).getCustomerPhone());
+           address.setText("Address : "+itemModelList.get(position).getCustomerAddress());
+           return view;
+       }
+   }
+
 }
