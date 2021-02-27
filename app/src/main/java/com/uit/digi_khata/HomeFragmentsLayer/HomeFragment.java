@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Filter;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.uit.digi_khata.AcountActivity;
 import com.uit.digi_khata.CustomerActivity;
 import com.uit.digi_khata.DatabaseHelperCustomer;
 import com.uit.digi_khata.ItemModel;
@@ -76,6 +78,24 @@ public class HomeFragment extends Fragment {
         }
        CustomAdapter customAdapter = new CustomAdapter(modelList,getActivity()) ;
        listView.setAdapter(customAdapter);
+
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+               String n = modelList.get(position).getCustomerName();
+               String p = modelList.get(position).getCustomerPhone();
+               String a = modelList.get(position).getCustomerAddress();
+
+               Bundle bundle = new Bundle() ;
+               bundle.putString("name",n);
+               bundle.putString("phone",p);
+               bundle.putString("address",a);
+               Intent intent = new Intent(getActivity(), AcountActivity.class) ;
+               intent.putExtras(bundle) ;
+               startActivity(intent);
+           }
+       });
 
         contact.setOnClickListener(new View.OnClickListener() {
             @Override

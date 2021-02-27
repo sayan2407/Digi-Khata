@@ -82,6 +82,8 @@
         android:id="@+id/listview"
         android:layout_below="@+id/search"
         android:layout_marginTop="15sp"
+        android:divider="@null"
+        android:scrollbars="none"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         android:layout_width="match_parent"

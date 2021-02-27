@@ -14,14 +14,17 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.DigiKhata">
-        <activity android:name=".CustomerActivity" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".AcountActivity" android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".CustomerActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SignupActivity"
             android:parentActivityName=".LoginOrSignUp" />
         <activity
             android:name=".RegisterActivity"
             android:parentActivityName=".LoginOrSignUp" />
-        <activity android:name=".LoginOrSignUp"></activity>
+        <activity android:name=".LoginOrSignUp" />
         <activity
             android:name=".AuthenticationActivity"
             android:parentActivityName=".LoginOrSignUp" />
@@ -32,7 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

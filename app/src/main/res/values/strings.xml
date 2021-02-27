@@ -36,4 +36,9 @@
     <string name="enter_customer_phone_number">Enter customer phone number</string>
     <string name="enter_customer_address">Enter customer Address</string>
     <string name="add_customer">Add Customer</string>
+    <string name="you_got">YOU GOT ₹</string>
+    <string name="you_gave">YOU GAVE ₹</string>
+    <string name="reports">Reports</string>
+    <string name="call">Call</string>
+    <string name="sms">SMS</string>
 </resources>

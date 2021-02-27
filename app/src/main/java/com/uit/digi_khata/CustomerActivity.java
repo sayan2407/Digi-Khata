@@ -34,7 +34,7 @@ public class CustomerActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.mytoolbar) ;
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back_24);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back_white);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mapping();

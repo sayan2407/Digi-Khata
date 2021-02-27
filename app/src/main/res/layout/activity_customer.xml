@@ -12,8 +12,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/mytoolbar"
             app:title="Digi-Khata"
-            app:titleTextColor="@color/amethyst"
-            android:background="@color/white"
+            app:titleTextColor="@color/white"
+            android:background="@color/antique"
             android:layout_width="match_parent"
             android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
             android:layout_height="wrap_content"/>
@@ -77,9 +77,10 @@
         android:id="@+id/insert"
         android:layout_margin="20sp"
         android:textStyle="bold"
-        android:elevation="4sp"
+        android:elevation="6sp"
+        android:backgroundTint="@color/white"
         android:padding="10sp"
-        android:background="@drawable/contacts_button"
+        android:textColor="@color/azure"
         android:text="@string/add_customer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
