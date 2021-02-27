@@ -41,4 +41,9 @@
     <string name="reports">Reports</string>
     <string name="call">Call</string>
     <string name="sms">SMS</string>
+    <string name="about_info">
+        Our software store details of customer like name,address,contact details.The bill number for easy tracking.It will store due and paid amount of customets.Send remainder to customers and give bill as pdf format.
+        This will be an Android application.I will use Android studio for making the application using java and xml.I will use Firebase as a Database.
+        our application will be reduce human effort and we would like to sell our apps in future
+    </string>
 </resources>

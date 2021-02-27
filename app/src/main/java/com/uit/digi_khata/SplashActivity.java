@@ -22,10 +22,15 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (fauth.getCurrentUser()!=null)
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                if (fauth.getCurrentUser() != null)
+                {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
                 else
+                {
                     startActivity(new Intent(getApplicationContext(),LoginOrSignUp.class));
+                }
+
                 finish();
             }
         },2000) ;

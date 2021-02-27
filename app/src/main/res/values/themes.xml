@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/azure</item>
         <item name="colorPrimaryVariant">@color/antique</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="itemFillColor">@color/amethyst</item>
+        <item name="icon">@color/amethyst</item>
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

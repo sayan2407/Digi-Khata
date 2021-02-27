@@ -3,19 +3,27 @@ package com.uit.digi_khata;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,17 +45,23 @@ public class AcountActivity extends AppCompatActivity {
     ListView listView ;
     Cursor result ;
     List<AcountModel>  modelList = new ArrayList<AcountModel>() ;
-
+    final int SEND_SMS_PERMISSION=1;
     LocalTime t;
     LocalDate d ;
     boolean b ;
     ListAdapterOne listAdapterOne ;
+    LinearLayout sms ;
+    int sumA = 0 , sumP = 0 ;
+    TextView msg,value ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acount);
         listView = findViewById(R.id.listview) ;
+        sms = findViewById(R.id.sms) ;
+        msg = findViewById(R.id.msg) ;
+        value = findViewById(R.id.value) ;
 
         toolbar = findViewById(R.id.mytoolbar) ;
         setSupportActionBar(toolbar);
@@ -73,13 +87,21 @@ public class AcountActivity extends AppCompatActivity {
 
         getData();
 
+        if (checkpermission(Manifest.permission.SEND_SMS)){
+            sms.setEnabled(true);
+        }else {
+            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.SEND_SMS},SEND_SMS_PERMISSION);
+        }
+
 
 
     }
 
 
     public void calling(View view) {
-        Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show();
+     Intent i = new Intent(Intent.ACTION_DIAL) ;
+     i.setData(Uri.parse("tel:"+phone)) ;
+     startActivity(i); ;
     }
 
     public void create_reports(View view) {
@@ -87,7 +109,33 @@ public class AcountActivity extends AppCompatActivity {
     }
 
     public void sms_alert(View view) {
-        Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show();
+        final EditText m=new EditText(view.getContext());
+        AlertDialog.Builder alert=new AlertDialog.Builder(view.getContext());
+        alert.setTitle("Request For Payment");
+        alert.setMessage("Enter message");
+        alert.setCancelable(false);
+        alert.setView(m);
+        alert.setPositiveButton("send", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String message=m.getText().toString().trim();
+                if (checkpermission(Manifest.permission.SEND_SMS))
+                {
+                    SmsManager smsManager=SmsManager.getDefault();
+                    smsManager.sendTextMessage(phone,null,message,null,null);
+                    Toast.makeText(getApplicationContext(),"Message sent",Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getApplicationContext(),"Message not sent",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alert.create().show();
     }
 
     public void gave(View view)
@@ -122,10 +170,12 @@ public class AcountActivity extends AppCompatActivity {
 
                 if (!TextUtils.isEmpty(accept))
                 {
+                    sumA+=Integer.parseInt(accept) ;
                     accept = "₹"+accept ;
                 }
                 if (!TextUtils.isEmpty(pay))
                 {
+                    sumP+=Integer.parseInt(pay) ;
                     pay = "₹"+pay ;
                 }
 
@@ -135,6 +185,26 @@ public class AcountActivity extends AppCompatActivity {
 
             }
 
+        }
+        if (sumA>sumP)
+        {
+            msg.setText("You will give");
+            msg.setTextColor(Color.RED);
+            value.setText("₹"+(sumA-sumP));
+            value.setTextColor(Color.RED);
+        }
+        else if(sumP>sumA)
+        {
+            msg.setText("You will got");
+            msg.setTextColor(Color.RED);
+            value.setText("₹"+(sumP-sumA));
+            value.setTextColor(Color.RED);
+        }
+        else {
+            msg.setText("All transaction done!!");
+            msg.setTextColor(Color.GREEN);
+            value.setText("₹"+(sumP-sumA));
+            value.setTextColor(Color.GREEN);
         }
 
 
@@ -177,7 +247,7 @@ public class AcountActivity extends AppCompatActivity {
                     if (b)
                     {
                         Toast.makeText(context, "Amount Saved", Toast.LENGTH_SHORT).show();
-                        getData();
+                      //  getData();
                     }
                     else
                     {
@@ -199,6 +269,11 @@ public class AcountActivity extends AppCompatActivity {
             }
         });
         alert.create().show();
+    }
+    public boolean checkpermission(String Permission)
+    {
+        int check= ContextCompat.checkSelfPermission(this,Permission);
+        return (check== PackageManager.PERMISSION_GRANTED);
     }
 
  /*   public class CustomAdapter extends BaseAdapter

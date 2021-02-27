@@ -3,12 +3,15 @@ package com.uit.digi_khata;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -18,9 +21,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.uit.digi_khata.HomeFragmentsLayer.AddCustomer;
 import com.uit.digi_khata.HomeFragmentsLayer.HomeFragment;
 import com.uit.digi_khata.HomeFragmentsLayer.UserFragment;
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
+    private FirebaseAuth fauth ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         setuptoolbar();
         initDrawer();
+
+        fauth = FirebaseAuth.getInstance();
 
 
        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -101,8 +109,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.lang:
+                Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
     }
 
 
@@ -117,8 +132,55 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.content,new UserFragment()).commit();
                 break;
             case R.id.addcustomer:
-                getSupportFragmentManager().beginTransaction().replace(R.id.content,new AddCustomer()).commit();
+               startActivity(new Intent(getApplicationContext(),CustomerActivity.class));
                 break ;
+            case R.id.about :
+                AlertDialog.Builder aleart = new AlertDialog.Builder(this) ;
+                aleart.setTitle("About Digi Khata") ;
+                aleart.setMessage(R.string.about_info) ;
+                aleart.setCancelable(false) ;
+                aleart.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                aleart.create().show();
+                break;
+            case R.id.logout:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this) ;
+                builder.setTitle("Sign Out!!");
+                builder.setMessage("Are you sure want to sign out?");
+                builder.setCancelable(false) ;
+                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(getApplicationContext(),LoginOrSignUp.class) ;
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK) ;
+                        startActivity(i);
+                        fauth.signOut();
+                    }
+                });
+                builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.create().show();
+                break;
+
+            case R.id.share:
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                String shareBody = "https://github.com/sayan2407/Digi-Khata";
+                String shareSub = "Source code of Digi Khata";
+                intent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+                intent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(intent, "Share Using"));
+                break;
+
         }
 
     }
