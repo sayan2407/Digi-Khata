@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +99,24 @@ public class HomeFragment extends Fragment {
            }
        });
 
+       search.addTextChangedListener(new TextWatcher() {
+           @Override
+           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+           }
+
+           @Override
+           public void onTextChanged(CharSequence s, int start, int before, int count) {
+               customAdapter.getFilter().filter(s);
+               customAdapter.notifyDataSetChanged();
+           }
+
+           @Override
+           public void afterTextChanged(Editable s) {
+
+           }
+       });
+
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,25 +125,27 @@ public class HomeFragment extends Fragment {
         });
         return view ;
     }
-   public class CustomAdapter extends BaseAdapter
+   public class CustomAdapter extends BaseAdapter implements Filterable
    {
        List<ItemModel> itemModelList ;
+       List<ItemModel> itemModelListFilter ;
        Context context ;
 
        public CustomAdapter(List<ItemModel> itemModelList,Context context)
        {
            this.itemModelList = itemModelList ;
+           this.itemModelListFilter = itemModelList ;
            this.context = context ;
        }
 
        @Override
        public int getCount() {
-           return itemModelList.size();
+           return itemModelListFilter.size();
        }
 
        @Override
        public Object getItem(int position) {
-           return itemModelList.get(position);
+           return itemModelListFilter.get(position);
        }
 
        @Override
@@ -139,10 +161,50 @@ public class HomeFragment extends Fragment {
            TextView phone = view.findViewById(R.id.cphone);
            TextView address = view.findViewById(R.id.cadd);
 
-           name.setText("Name : "+itemModelList.get(position).getCustomerName());
-           phone.setText("Phone : "+itemModelList.get(position).getCustomerPhone());
-           address.setText("Address : "+itemModelList.get(position).getCustomerAddress());
+           name.setText("Name : "+itemModelListFilter.get(position).getCustomerName());
+           phone.setText("Phone : "+itemModelListFilter.get(position).getCustomerPhone());
+           address.setText("Address : "+itemModelListFilter.get(position).getCustomerAddress());
            return view;
+       }
+
+       @Override
+       public Filter getFilter() {
+
+           Filter filter = new Filter() {
+               @Override
+               protected FilterResults performFiltering(CharSequence constraint) {
+                   FilterResults filterResults = new FilterResults() ;
+                   if (constraint == null || constraint.length() == 0)
+                   {
+                       filterResults.count = itemModelList.size() ;
+                       filterResults.values = itemModelList ;
+                   }
+                   else
+                   {
+                       List<ItemModel> resultModel = new ArrayList<ItemModel>();
+                       String searchStr = constraint.toString().toLowerCase();
+                       for (ItemModel itemModel : itemModelList)
+                       {
+                           if (itemModel.getCustomerName().toLowerCase().contains(searchStr))
+                           {
+                               resultModel.add(itemModel);
+                           }
+                           filterResults.count=resultModel.size();
+                           filterResults.values=resultModel;
+                       }
+                   }
+                   return filterResults;
+               }
+
+               @Override
+               protected void publishResults(CharSequence constraint, FilterResults results) {
+                   itemModelListFilter = (List<ItemModel>)results.values ;
+                   modelList =(List<ItemModel>)results.values ;
+                   notifyDataSetChanged();
+
+               }
+           };
+           return filter;
        }
    }
 

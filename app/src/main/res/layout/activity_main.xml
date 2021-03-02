@@ -25,6 +25,7 @@
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         app:headerLayout="@layout/header"
+        app:itemIconTint="@color/amethyst"
         app:itemTextColor="@color/amethyst"
        app:menu="@menu/slide_menu"
         android:layout_gravity = "start"
