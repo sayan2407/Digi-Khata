@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.leo.simplearcloader.SimpleArcLoader;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
@@ -30,12 +31,14 @@ public class AuthenticationActivity extends AppCompatActivity {
     private String emailid,password ;
     private Button login ;
     private String yourEmail ;
+    private SimpleArcLoader loader ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
         toolbar = findViewById(R.id.mytoolbar) ;
         setSupportActionBar(toolbar);
+        loader = findViewById(R.id.loader) ;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back_24);
@@ -47,29 +50,49 @@ public class AuthenticationActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loader.setVisibility(View.VISIBLE);
                 emailid = email.getText().toString().trim();
                 password = pass.getText().toString().trim();
 
-                fauth.signInWithEmailAndPassword(emailid,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        try {
-                            if (task.isSuccessful())
-                            {
-                                Toast.makeText(getApplicationContext(),"Login successfull",Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                // set the new task and clear flags
-                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK) ;
-                                startActivity(i);
+                if (TextUtils.isEmpty(emailid) || TextUtils.isEmpty(password))
+                {
+                    loader.setVisibility(View.INVISIBLE);
+                    Toast.makeText(AuthenticationActivity.this, "Please enter credentials", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    fauth.signInWithEmailAndPassword(emailid,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            try {
+                                if (task.isSuccessful())
+                                {
+                                    Toast.makeText(getApplicationContext(),"Login successfull",Toast.LENGTH_LONG).show();
+                                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                    // set the new task and clear flags
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK) ;
+                                    startActivity(i);
+                                    loader.setVisibility(View.INVISIBLE);
+                                }
+                                else
+                                {
+                                    loader.setVisibility(View.INVISIBLE);
+                                    Toast.makeText(AuthenticationActivity.this, "Please enter correct credentials", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }catch (Exception e){
+                                loader.setVisibility(View.INVISIBLE);
+                                Toast.makeText(getApplicationContext(),"Error :"+e.getMessage(),Toast.LENGTH_LONG).show();
+
                             }
 
-                        }catch (Exception e){
-                            Toast.makeText(getApplicationContext(),"Error :"+e.getMessage(),Toast.LENGTH_LONG).show();
-
                         }
+                    });
 
-                    }
-                });
+                }
+
+
+
             }
         });
 

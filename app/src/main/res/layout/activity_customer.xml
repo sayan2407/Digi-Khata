@@ -25,10 +25,10 @@
         android:textStyle="bold"
         android:elevation="4sp"
         android:padding="10sp"
-        android:background="@drawable/contacts_button"
         android:text="@string/choose_your_customer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
 
     <View
         android:layout_margin="20sp"
@@ -73,11 +73,17 @@
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <View
+        android:layout_margin="20sp"
+        android:background="@color/amethyst"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"/>
+
     <Button
         android:id="@+id/insert"
         android:layout_margin="20sp"
         android:textStyle="bold"
-        android:elevation="6sp"
+        android:elevation="8sp"
         android:backgroundTint="@color/white"
         android:padding="10sp"
         android:textColor="@color/azure"

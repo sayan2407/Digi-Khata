@@ -14,5 +14,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="fabtheme" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="colorOnSecondary">@color/white</item>
+    </style>
+
 
 </resources>

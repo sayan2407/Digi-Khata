@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.leo.simplearcloader.SimpleArcLoader;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -26,7 +28,7 @@ public class SignupActivity extends AppCompatActivity {
     private UtilService utilService;
     private Button register ;
     private String owner,companyname,emailid,pass,cpass,mobile,userId ;
-    //  private SimpleArcLoader loader ;
+    private SimpleArcLoader loader ;
     FirebaseDatabase database ;
     FirebaseAuth fauth ;
     DatabaseReference myref ;
@@ -53,7 +55,7 @@ public class SignupActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                loader.setVisibility(View.VISIBLE);
                 utilService.hide_keyboard(v,SignupActivity.this);
                 owner = name.getText().toString().trim();
                 companyname = cname.getText().toString().trim();
@@ -77,8 +79,19 @@ public class SignupActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"Profile Created",Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(getApplicationContext(),LoginOrSignUp.class));
                                 finish();
+                                loader.setVisibility(View.INVISIBLE);
+                            }
+                            else{
+                                loader.setVisibility(View.INVISIBLE);
+                                Toast.makeText(getApplicationContext(),"Profile Not Created",Toast.LENGTH_LONG).show();
                             }
 
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            loader.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SignupActivity.this, "Error : "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -166,6 +179,7 @@ public class SignupActivity extends AppCompatActivity {
         password = findViewById(R.id.createpassword) ;
         cpassword = findViewById(R.id.confirmpassword) ;
         register = findViewById(R.id.register) ;
+        loader = findViewById(R.id.loader) ;
 
     }
 }

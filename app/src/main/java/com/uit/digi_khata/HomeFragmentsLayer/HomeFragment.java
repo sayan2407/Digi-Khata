@@ -25,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.uit.digi_khata.AcountActivity;
 import com.uit.digi_khata.CustomerActivity;
+import com.uit.digi_khata.DatabaseAccountHelper;
 import com.uit.digi_khata.DatabaseHelperCustomer;
 import com.uit.digi_khata.ItemModel;
 import com.uit.digi_khata.R;
@@ -40,10 +41,12 @@ public class HomeFragment extends Fragment {
     TextView paid,due ;
     FirebaseAuth fauth ;
     String userid ;
-    Cursor result ;
+    Cursor result,resultMoney ;
     DatabaseHelperCustomer mydb ;
     ItemModel itemModel;
     List<ItemModel> modelList=new ArrayList<>();
+    private double sumC = 0.0 , sumD = 0.0 ;
+    private DatabaseAccountHelper databaseAccountHelper ;
 
 
     public HomeFragment() {
@@ -59,9 +62,10 @@ public class HomeFragment extends Fragment {
         search = view.findViewById(R.id.search);
         listView = view.findViewById(R.id.listview);
         contact = view.findViewById(R.id.contacts) ;
-        paid = view.findViewById(R.id.t3) ;
+        paid = view.findViewById(R.id.t2) ;
         due = view.findViewById(R.id.t4) ;
        mydb = new DatabaseHelperCustomer(getActivity());
+       databaseAccountHelper = new DatabaseAccountHelper(getActivity()) ;
         fauth = FirebaseAuth.getInstance();
         userid = fauth.getCurrentUser().getUid();
        result = mydb.customer_data() ;
@@ -80,6 +84,33 @@ public class HomeFragment extends Fragment {
         }
        CustomAdapter customAdapter = new CustomAdapter(modelList,getActivity()) ;
        listView.setAdapter(customAdapter);
+
+       resultMoney = databaseAccountHelper.getpaymentData() ;
+       if (resultMoney.getCount() == 0)
+       {
+           sumC = 0.00 ;
+           sumD = 0.00;
+       }
+       else
+       {
+           while (resultMoney.moveToNext())
+           {
+               String id = resultMoney.getString(0) ;
+               if (id.equals(userid))
+               {
+                   if (resultMoney.getString(5).equals(""))
+                   {
+                       sumD+=Double.parseDouble(resultMoney.getString(6)) ;
+                   }
+                   else
+                   {
+                       sumC+=Double.parseDouble(resultMoney.getString(5)) ;
+                   }
+               }
+           }
+           paid.setText("₹"+sumC);
+           due.setText("₹"+sumD);
+       }
 
        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
