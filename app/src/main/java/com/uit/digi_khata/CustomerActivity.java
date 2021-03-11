@@ -63,9 +63,9 @@ public class CustomerActivity extends AppCompatActivity {
                     userid = fauth.getCurrentUser().getUid() ;
                     boolean check = mydb.insert_customer(customerPhone,customerName,customerAdd,userid) ;
                     if (check)
-                        Toast.makeText(getApplicationContext(),"Data Inserted",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Customer Information Inserted",Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getApplicationContext(),"Data Not Inserted",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Customer Information Not Inserted",Toast.LENGTH_LONG).show();
 
                     name.setText("");
                     phone.setText("");

@@ -1,14 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragmentsLayer.UserFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <androidx.cardview.widget.CardView
+       android:layout_marginTop="20sp"
+       android:elevation="6sp"
+       app:cardCornerRadius="20sp"
+       android:layout_marginLeft="10sp"
+       android:layout_marginRight="10sp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <RelativeLayout
+           android:padding="10sp"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
 
-</FrameLayout>
+           <TextView
+               android:id="@+id/companyname"
+              android:layout_centerHorizontal="true"
+               android:textColor="@color/azure"
+               android:textSize="18sp"
+               android:textStyle="bold"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+
+       </RelativeLayout>
+
+   </androidx.cardview.widget.CardView>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginTop="20sp"
+        android:layout_gravity="center"
+        android:elevation="4sp"
+        android:src="@drawable/logo"
+        android:layout_width="80sp"
+        android:layout_height="80sp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="20sp"
+        android:elevation="6sp"
+        app:cardCornerRadius="20sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:padding="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/owner"
+               android:layout_centerHorizontal="true"
+                android:text="owner : sayan pal"
+                android:textStyle="italic"
+                android:textColor="@color/azure"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="20sp"
+        android:elevation="6sp"
+        app:cardCornerRadius="20sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:padding="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_centerHorizontal="true"
+                android:text="owner : sayan pal"
+                android:textStyle="italic"
+                android:textColor="@color/azure"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="20sp"
+        android:elevation="6sp"
+        app:cardCornerRadius="20sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:padding="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_centerHorizontal="true"
+                android:text="owner : sayan pal"
+                android:textStyle="italic"
+                android:textColor="@color/azure"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/logout"
+           android:layout_alignParentBottom="true"
+            android:layout_margin="20sp"
+            android:text="@string/log_out"
+            android:padding="10sp"
+            android:elevation="4sp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

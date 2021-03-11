@@ -46,4 +46,5 @@
         This will be an Android application.I will use Android studio for making the application using java and xml.I will use Firebase as a Database.
         our application will be reduce human effort and we would like to sell our apps in future
     </string>
+    <string name="_0_00">0.00</string>
 </resources>

@@ -75,7 +75,7 @@ public class SignupActivity extends AppCompatActivity {
                                  userId = fauth.getCurrentUser().getUid();
                             /*     User u = new User(owner,companyname,mobile,emailid) ;
                                 myref.child(userId).setValue(u) ; */
-                                mydb.insertData(userId,emailid,mobile,owner,pass) ;
+                                mydb.insertData(userId,emailid,mobile,owner,companyname) ;
                                 Toast.makeText(getApplicationContext(),"Profile Created",Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(getApplicationContext(),LoginOrSignUp.class));
                                 finish();
@@ -94,6 +94,10 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(SignupActivity.this, "Error : "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
+                else
+                {
+                    loader.setVisibility(View.GONE);
                 }
 
 

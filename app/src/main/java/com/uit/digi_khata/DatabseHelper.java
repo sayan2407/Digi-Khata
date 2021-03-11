@@ -2,6 +2,7 @@ package com.uit.digi_khata;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -49,5 +50,11 @@ public class DatabseHelper extends SQLiteOpenHelper
             return false ;
         else
             return true ;
+    }
+    public Cursor getOwnerData()
+    {
+        SQLiteDatabase db = this.getWritableDatabase() ;
+        Cursor res = db.rawQuery("SELECT USERID,EMAIL,PHONE,OWNER,CNAME FROM "+TABLE_NAME,null) ;
+        return  res ;
     }
 }
