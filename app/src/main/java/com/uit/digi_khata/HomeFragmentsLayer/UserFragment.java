@@ -59,7 +59,7 @@ public class UserFragment extends Fragment {
               phoneno = result.getString(2) ;
               name = result.getString(3) ;
               cname = result.getString(4) ;
-              Toast.makeText(getActivity(), "Got it", Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(getActivity(), "Got it", Toast.LENGTH_SHORT).show();
 
             }
         }
