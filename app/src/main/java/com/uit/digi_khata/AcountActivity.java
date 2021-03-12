@@ -259,7 +259,7 @@ public class AcountActivity extends AppCompatActivity {
 
             mypdfDocument.finishPage(mypage1);
 
-            File file = new File(Environment.getExternalStorageDirectory(),"/digikhata1.pdf") ;
+            File file = new File(Environment.getExternalStorageDirectory(),"/digikhataReports.pdf") ;
 
 
             try {
